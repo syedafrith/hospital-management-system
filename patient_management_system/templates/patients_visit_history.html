@@ -1,0 +1,41 @@
+{% extends 'patients_data.html' %}
+{% if visit_history %}
+ {% block patient_list %}
+    {% if request.user.has_superuser %}
+      <a href="/patients"><i class='fas fa-arrow-circle-left' style='font-size:36px'></i></a>
+    {% endif %}
+    {% for x in visit_history %}
+    <button class="visit_history">
+        <p>{{x.patient.name}} visited at {{x.created}}</p>
+        <div class="visit_container">
+        <table>
+            <tr>
+                <td>Patient Name</td>
+                <td>{{x.patient.name}}</td>
+            </tr>
+            <tr>
+                <td>Mobile No</td>
+                <td>{{x.patient.mobile}}</td>
+            </tr>
+            <tr>
+                <td>Consulted Doctor</td>
+                <td>{{x.consultant_doctor.name}}</td>
+            </tr>
+            <tr>
+                <td>Department</td>
+                <td>{{x.consultant_doctor.department}}</td>
+            </tr>
+            <tr>
+                <td>Visited on</td>
+                <td>{{x.created}}</td>
+            </tr>
+        </table>
+        </div>
+    </button>
+    {% empty %}
+    <button class="visit_history">
+       <p>no visits</p>
+    </button>
+    {% endfor %}
+ {% endblock %}
+{% endif %}

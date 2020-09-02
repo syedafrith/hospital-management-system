@@ -1,0 +1,13 @@
+{% block form  %}
+  {% for x in doctor_list %}
+    <div class="doctors_list">
+      <img height="100%" width="100px" src="/media/{{x.photo}}">
+      <div class="container_details">
+        <h2><b>{{x.name|upper}}</b></h2>
+        <h5><b>{{x.department|upper}}</b></h5>
+        <a class="edit " href="{{x.id}}/edit/"><b>Edit Profile</b></a>
+        <a class="delete" data-catid="{{x.id}}"><b>Delete</b></a>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

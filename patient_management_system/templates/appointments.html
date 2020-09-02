@@ -1,0 +1,41 @@
+{% extends 'patients_data.html' %}
+{% block patient_list %}
+
+ {% if request.user.is_superuser %}
+   <button class="back"><a href="/patients">Back</a></button><br>
+ {% endif %}
+
+ {% for x in appointment %}
+ <button class="visit_history" style="background-color:#0099cc;">
+     <p><i>{{x.patient.name}} has appointment on {{x.created}}</i></p>
+     <div class="visit_container">
+         <table>
+             <tr>
+                 <td>Patient Name</td>
+                 <td>{{x.patient.name}}</td>
+             </tr>
+             <tr>
+                 <td>Mobile No</td>
+                 <td>{{x.patient.mobile}}</td>
+             </tr>
+             <tr>
+                 <td>Consulted Doctor</td>
+                 <td>{{x.consultant_doctor.name}}</td>
+             </tr>
+             <tr>
+                 <td>Department</td>
+                 <td>{{x.consultant_doctor.department}}</td>
+             </tr>
+             <tr>
+                 <td>Appointment on</td>
+                 <td>{{x.created}}</td>
+             </tr>
+         </table>
+     </div>
+ </button>
+ {% empty %}
+    <button class="visit_history" style="margin-top:0.5cm;">
+        <p><i>no appointments</i></p>
+    </button>
+ {% endfor %}
+{% endblock %}

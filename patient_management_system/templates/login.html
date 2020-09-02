@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'hospital_management_system/css/login.css' %}" >
+</head>
+<body>
+<div class="login">
+    <div class="logo">
+        <h2>HOSPITAL</h2>
+        <h4>management</h4>
+    </div>
+    <br>
+    <form action="/login/" method="post">{% csrf_token %}
+        <label for="username" >Username</label><br>
+        <input type="text" id="username" name="username" placeholder="username"><br>
+        <label for="password" >password</label><br>
+        <input type="password" id="password" name="password" placeholder="password"><br>
+        <input type="submit" value="Sign In">
+        <input type="hidden" name="next" value="/doctors">
+    </form>
+    {% if form.errors %}
+      <h3><center><b>invalid username or password</b></center></h3>
+    {% endif %}
+</div>
+</body>
+</html>

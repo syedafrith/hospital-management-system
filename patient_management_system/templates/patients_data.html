@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.cs" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
+    {% load static %}
+     <link rel="stylesheet"  type="text/css" href="{% static 'hospital_management_system/css/patients.css' %}">
+</head>
+<body>
+<div class="main-content">
+
+    {% block header %}
+   <div class="header">
+        <div class="logo">
+            <h3>HOSPITAL</h3>
+            <h5>management</h5>
+        </div>
+        {% if patients_list %}
+            <img class="search_return" src="https://img.icons8.com/ios-filled/40/000000/circled-left-2.png"/>
+            <div class="search_bar">
+                <i class='fas fa-search' style='font-size:24px'></i>
+                <input type="text" name="search" id="search_input" placeholder="Patient name or Mobile_no"/>
+            </div>
+            <img id="search_icon" src="https://img.icons8.com/plasticine/40/000000/google-web-search.png"/>
+            <img id="add_icon" src="https://img.icons8.com/color/36/000000/add-user-male--v1.png"/>
+        {% endif %}
+        <div class="profile_container">
+            <img src="https://img.icons8.com/plasticine/36/000000/user-male-circle.png"/>
+            {{request.user}}<br>
+            <a class="logout" href="/logout">log out</a>
+        </div>
+    </div>
+    {% endblock %}
+    {% if patients_list %}
+      <p style="float:right;" class="no_of_patients">Total Patients-<b>{{ patients_list|length}}</b></p><br><br>
+    {% endif %}
+
+    {% block navbar %}
+    {% if request.user.is_superuser %}
+    <div class="navbar">
+        <a href="/doctors/" target="_self"><img
+                src="https://img.icons8.com/doodle/38/000000/doctor-male.png"/>doctors</a>
+        <a href="/patients"><img src="https://img.icons8.com/color/38/000000/patient-oxygen-mask.png"/>patients</a>
+        <a href="/appointments/"><img src="https://img.icons8.com/dusk/38/000000/planner.png"/>appointments</a>
+    </div>
+    {% else %}
+    <div class="navbar">
+        <a href="/doctors/" target="_self"><img
+                src="https://img.icons8.com/doodle/38/000000/doctor-male.png"/>doctors</a>
+        <a href="/patients_visit_history/0"><img src="https://img.icons8.com/fluent/38/000000/time-machine.png"/>visits</a>
+        <a href="/make_appointment/0" class="appointment"><img
+                src="https://img.icons8.com/fluent/38/000000/plus-2-math.png"/>new Appointment</a>
+        <a href="/appointments/"><img src="https://img.icons8.com/dusk/38/000000/planner.png"/>appointments</a>
+    </div>
+    {% endif %}
+    {% endblock %}
+
+
+    {% block patients_form %}
+    {% if patients_form %}
+    <div class="patients_form">
+        <h2 style="text-align:center"><b>Add patient</b></h2>
+        <form action="." method="post" id="add_patients">{% csrf_token %}
+            {{patients_form}}
+            <button class="submit">
+                <div class='loader'></div>
+                <div class="button_value">Add</div>
+            </button>
+        </form>
+    </div>
+    {% endif %}
+    {% endblock %}
+
+    {% block search_container %}
+    <div class="search_container">
+    </div>
+    <br>
+    {% endblock %}
+
+
+    {% block out_patient_form %}
+    <div class="outpatient_form">
+        <a href="/patients"><span><i class='fas fa-times-circle' style='font-size:24px'></i></span></a>
+        <h2 style="margin-left:50px;">OUT PATIENT FORM</h2>
+        <form action="." method="post" id="outpatient">{% csrf_token %}
+            <tr>
+                <th><label for="id_name">Patients Name</label></th>
+                <td><input type="text" name="name" placeholder="Patient name" class="form_input" readonly required
+                           id="id_name"></td>
+            </tr>
+            <tr>
+                <th><label for="id_mobile">Mobile No</label></th>
+                <td><input type="text" name="mobile" placeholder="Mobile No" class="form_input" readonly required
+                           id="id_mobile"></td>
+            </tr>
+            <tr>
+                <th><label for="id_consultant_doctor">Consultant Doctor</label></th>
+                <td><input list="consultant_doctor" name="consultant_doctor" placeholder="Consultant_doctor"
+                           class="form_input" required id="id_co
+        nsultant_doctor"></td>
+            </tr>
+            <datalist id="consultant_doctor">
+                {% for doctor in doctors %}
+                <option value="{{doctor.name}},{{doctor.department}}">
+                    {% endfor %}
+            </datalist>
+            <button class="submit1">
+                <div class='loader'></div>
+                <div class="button_value">Add</div>
+            </button>
+        </form>
+        <p id="success"></p>
+    </div>
+    {% endblock %}
+
+    {% block patient_list %}
+    <div class="patients">
+        {% for x in patients_list|dictsortreversed:"datetime" %}
+        <div class="patient_list">
+            <a href="/patient_profile/{{x.id}}" class="p_profile"><h5><b>{{x.name|upper}}</b></h5></a>
+            <p>{{x.mobile}}</p>
+            <div class="link">
+                <a data-name="{{x.name}}" data-mobile="{{x.mobile}}" class="op"><span class='fab fa-wpforms' style='font-size:15px;'></span> OP</a>
+                <a href="/patients_visit_history/{{x.id}}"><span class='fas fa-history' style='font-size:15px'></span> Active Visits</a>
+                <a href="/make_appointment/{{x.id}}" class="appointment"><span class='fas fa-calendar-alt' style='font-size:15px;'></span> Appointment</a>
+            </div>
+        </div>
+        {% empty %}
+        <center><h3>no patients</h3></center>
+        {% endfor %}
+    </div>
+    {% endblock %}
+</div>
+
+
+{% block footer %}
+    <div class="footer">
+    </div>
+{% endblock %}
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'hospital_management_system/script/patient.js' %}"></script>
+<script >window.CSRF_TOKEN = "{{ csrf_token }}";</script>
+</body>
+</html>

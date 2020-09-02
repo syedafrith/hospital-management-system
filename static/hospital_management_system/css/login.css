@@ -1,0 +1,85 @@
+body{
+ background-color:#d1e0e0;
+}
+
+.login{
+ border: 1px solid black;
+ display:block;
+ width:500px;
+ height:400px;
+ margin:100px auto;
+ background-color:white;
+}
+
+.login h3{
+ color:#660033;
+}
+
+label{
+ margin-left:45px;
+ font-size:20px;
+ font-weight:bold;
+ color:blue;
+}
+
+input{
+ display:block;
+ outline:none;
+ border:1px solid black;
+ width:400px;
+ margin:auto;
+ height:50px;
+ font-size:20px;
+}
+
+input[type=submit]{
+ background-color:green;
+ font-size:20px;
+ color:white;
+}
+
+input:focus{
+ border:1px solid #ff9900;
+}
+
+.logo{
+  display:block;
+  border:1px solid white;
+  margin:auto;
+  background: url("/static/hospital_management_system/images/stethoscope icon.jpg") no-repeat ;
+  background-size:50px;
+  background-position:170px 20px;
+  text-align:center;
+}
+
+.logo h2{
+  margin-left:1.5cm;
+  font-family:Arbutus;
+  color:red;
+}
+
+.logo h4{
+  margin-left:2.5cm;
+  margin-top:-0.5cm;
+  font-style:italic;
+ }
+
+::placeholder{
+ font-size:15px;
+}
+
+@media only screen and (max-width: 600px){
+ .login{
+  width:110%;
+  margin:150px auto;
+ }
+
+ label{
+ margin-left:unset;
+}
+
+.logo{
+  background-position:130px 20px;
+  }
+
+}

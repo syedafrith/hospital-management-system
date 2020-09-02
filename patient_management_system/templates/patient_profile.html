@@ -1,0 +1,32 @@
+{% extends 'patients_data.html' %}
+{% block patient_list %}
+<div class="patient_profile">
+    <center><h2><b>patient profile</b></h2></center>
+    <table>
+        <tr>
+            <td>patient name</td>
+            <td>{{patient.name}}</td>
+        </tr>
+        <tr>
+            <td>age</td>
+            <td>{{patient.age}}</td>
+        </tr>
+        <tr>
+            <td>gender</td>
+            <td>{{patient.gender}}</td>
+        </tr>
+        <tr>
+            <td>address</td>
+            <td>{{patient.address}}</td>
+        </tr>
+        <tr>
+            <td>mobile no</td>
+            <td>{{patient.mobile}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{patient.email}}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

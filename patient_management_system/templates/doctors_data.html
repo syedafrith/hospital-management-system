@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.cs"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'hospital_management_system/css/doctors.css' %}">
+</head>
+
+<body>
+<div class="main-content">
+    {% block header %}
+        <div class="header" >
+            <div class="logo">
+                <h3>HOSPITAL</h3>
+                <h5>management</h5>
+            </div>
+
+            {% if request.user.is_superuser %}
+            <div class="search_bar">
+                <i class='fas fa-search' style='font-size:24px'></i>
+                <input type="text" name="search" id="search_input" placeholder="Doctor name or Department"/>
+            </div>
+            {% endif %}
+
+            <div class="profile_container">
+                <img src="https://img.icons8.com/fluent/36/000000/guest-male.png"/>
+                {{request.user}}<br>
+                <a class="logout" href="/logout">log out</a>
+            </div>
+        </div><br>
+    <p class="alertmessage" style="color:white"></p>
+    {% endblock %}
+
+
+    {% block navbar %}
+        {% if request.user.is_superuser %}
+        <div class="navbar">
+            <a class="current"><img src="https://img.icons8.com/doodle/38/000000/doctor-male.png"/>doctors</a>
+            <a href="/patients/"><img src="https://img.icons8.com/color/38/000000/patient-oxygen-mask.png"/>patients</a>
+            <a href="/appointments/"><img src="https://img.icons8.com/dusk/38/000000/planner.png"/>appointments</a>
+        </div>
+        {% else %}
+        <div class="navbar">
+            <a href="/doctors/" class="current" target="_self"><img src="https://img.icons8.com/doodle/38/000000/doctor-male.png"/>doctors</a>
+            <a href="/patients_visit_history/0"><img src="https://img.icons8.com/fluent/38/000000/time-machine.png"/>visits</a>
+            <a href="/make_appointment/0" class="appointment"><img src="https://img.icons8.com/fluent/38/000000/plus-2-math.png"/></span>new Appointment</a>
+            <a href="/appointments/"><img src="https://img.icons8.com/dusk/38/000000/planner.png"/>appointments</a>
+        </div>
+        {% endif %}
+    {% endblock %}
+
+
+    {% block left_container %}
+       <div class="left_container" id="leftcontainer">
+       </div><br>
+    {% endblock %}
+
+    {% block form %}
+        <div class="add_doctors">
+            <span class="close"><i  class='fas fa-times-circle' style='font-size:24px'></i></span>
+            <form  id="add_doctors" method="post" enctype="multipart/form-data"  >{% csrf_token %}
+                {{doctors_form.as_p}}
+                <input type="submit" id="submit" value="Save">
+            </form>
+        </div>
+    {% endblock %}
+
+
+    {% block doctorslist %}
+      <span  class="no_of_doctors">Total Doctors-<b>{{no_of_doctors}}</b></span>
+        {% if request.user.is_superuser %}
+          <span class="doctor_list_button"> + ADD DOCTOR</span>
+        {% endif %}<br>
+      <div class="doctors" id="doctors">
+       {% if doctors_list %}
+            <div class="doctors_profile">
+            </div>
+        {% for x in doctors_list %}
+          <div class="doctors_list">
+            <img height="100%" width="100px"  src="{{MEDIA_URL}}/{{x.photo}}" >
+            <div class="container_details" >
+                <h2><b>{{x.name|upper}}</b></h2>
+                <h5><b>{{x.department|upper}}</b></h5>
+                {% if request.user.is_superuser %}
+                <button ><a class="edit " href="{{x.id}}/edit/"><b>Edit Profile</b></a></button>
+                <button><a class="delete" data-catid="{{x.id}}"><b>Delete</b></a></button>
+                {% endif %}
+            </div>
+          </div><br>
+        {% endfor %}
+       {% endif %}
+      </div>
+    {% endblock %}
+
+    {% block edit %}
+    {% endblock %}
+
+    {% block view %}
+    {% endblock %}
+</div>
+
+
+
+{% block footer %}
+    <div class="footer">
+    </div>
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script type="text/javascript" src="{% static 'hospital_management_system/script/doctors.js' %}"></script>
+<script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
+
+</body>
+</html>

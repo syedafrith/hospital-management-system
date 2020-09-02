@@ -1,0 +1,14 @@
+{% if form  %}
+    {% for x in form|dictsortreversed:"datetime" %}
+        <a href="/patient_profile/{{x.id}}" class="p_profile"><h5><b>{{x.name|upper}}</b></h5></a>
+        <p style="margin-top:-10px;">{{x.mobile}}</p>
+        <a data-name="{{x.name}}" data-mobile="{{x.mobile}}" class="op"><span class='fab fa-wpforms'
+                                                                              style='font-size:15px;'></span> OP</a>
+        <a href="{{x.mobile}}/patients_visit_history/"><span class='fas fa-history' style='font-size:15px'></span> Active Visits</a>
+        <a href="/make_appointment/{{x.id}}" class="appointment"><span class='fas fa-calendar-alt'
+                                                                       style='font-size:15px;'></span> Appointment</a>
+    {% endfor %}
+{% else %}
+    <h4 style="text-align:center;padding-top:25px;"><b>No Results Found</b></h4>
+{% endif %}
+

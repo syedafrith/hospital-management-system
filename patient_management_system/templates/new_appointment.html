@@ -1,0 +1,23 @@
+{% extends 'patients_data.html' %}
+{% block patient_list %}
+<div class="outpatient_form" style="display:block;margin:auto;">
+    <h2 style="margin-left:50px;"><b>make appointment</b></h2>
+    <form action="." method="post" id="outpatient">{% csrf_token %}
+        <tr><th><label for="id_name">Patients Name</label></th><td><input type="text" value="{{patients_data.name}}" name="name" placeholder="Patient name" class="form_input" readonly required id="id_name"></td></tr>
+        <tr><th><label for="id_mobile">Mobile No</label></th><td><input type="text" value="{{patients_data.mobile}}" name="mobile" placeholder="Mobile No" class="form_input" readonly required id="id_mobile"></td></tr>
+        <tr><th><label for="id_consultant_doctor">Consultant Doctor</label></th><td><input list="consultant_doctor" name="consultant_doctor" placeholder="Consultant_doctor" class="form_input" required id="id_co
+        nsultant_doctor"></td></tr>
+        <datalist id="consultant_doctor">
+            {% for doctor in doctors %}
+              <option value="{{doctor.name}},{{doctor.department}}">
+            {% endfor %}
+        </datalist>
+        <tr><th><label for="datetime">Date and Time</label></th>
+        <td><input type="datetime-local" name="date_time" required id="datetime"></td></tr>
+        <button class="save"><div class="button_value">Add</div></button>
+    </form>
+    {% if request.user.is_superuser %}
+      <button class="back"><a href="/patients">Back</a></button>
+    {% endif %}
+</div><br>
+{% endblock %}

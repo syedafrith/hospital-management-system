@@ -1,0 +1,11 @@
+{% for x in patients_list|dictsortreversed:"datetime"%}
+<div class="patient_list">
+    <a href="/patient_profile/{{x.id}}" class="p_profile"><h5><b>{{x.name|upper}}</b></h5></a>
+    <p>{{x.mobile}}</p>
+    <div class="link">
+        <a data-name="{{x.name}}" data-mobile="{{x.mobile}}" class="op"><span class='fab fa-wpforms' style='font-size:15px;'></span> OP</a>
+        <a href="{{x.id}}/patients_visit_history/"  ><span class='fas fa-history' style='font-size:15px'></span> Active Visits</a>
+        <a class="appointment"><span class='fas fa-calendar-alt' style='font-size:15px;'></span> Appointment</a>
+     </div>
+</div>
+{% endfor %}

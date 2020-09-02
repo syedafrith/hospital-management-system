@@ -1,0 +1,22 @@
+{% if doctors %}
+    {% for x in doctors %}
+     <a class="doctor_profile" data-catid="{{x.id}}" >
+        <div class="card">
+            <img src="/media/{{x.photo}}" style="margin-left:1.5cm" class="w3-circle">
+            <div class="desc">
+                <h4><b>{{x.name|upper}}</b></h4>
+                <p>{{x.department|upper}}</p>
+            </div>
+        </div>
+        <a class="edit" href="{{x.id}}/edit/" style="margin-left:30%"><i class='fas fa-edit' style="color:black;font-size:24px"></i></a>
+        <a class="delete" data-catid="{{x.id}}"><i class='fas fa-trash' style="color:black;font-size:24px"></i></a>
+     </a>
+    {% endfor %}
+{% else %}
+    <div class="card">
+        <div class="desc">
+            <h4><b>{{x.name|default:"NO RESULTS FOUND"}}</b></h4>
+            <p>{{x.department|default:""}}</p>
+        </div>
+    </div><br>
+{% endif %}
