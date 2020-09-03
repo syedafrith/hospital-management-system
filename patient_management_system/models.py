@@ -32,7 +32,6 @@ class doctors(models.Model):
 
 
 class patients(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=30)
     age = models.IntegerField(default=0)
     gender = models.CharField(choices=[('Male', 'Male'), ('Female', 'Female')], max_length=6)
