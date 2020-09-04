@@ -27,7 +27,7 @@ def appointment_reminder():
 
 def account_login(request):
     if request.method == "POST":
-        name = request.POST['name']
+        name = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=name, password=password)
         if user is not None:
