@@ -44,12 +44,17 @@ input:focus{
 
 .logo{
   display:block;
-  border:1px solid black;
+  border:1px solid white;
   margin:auto;
-  background: url("/static/hospital_management_system/images/stethoscope icon.jpg") no-repeat ;
-  background-size:50px;
-  background-position:170px 20px;
   text-align:center;
+  width:35%;
+}
+
+.logo img {
+ float:left;
+ margin: 20px auto;
+ height:50px;
+ width:50px;
 }
 
 .logo h2{
@@ -93,7 +98,7 @@ input:focus{
 }
 
 .logo{
-  background-position:130px 20px;
+  margin-left:15%;
   }
 
 }
