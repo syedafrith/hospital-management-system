@@ -114,13 +114,16 @@ def check_doctors_data(request):
 
 @login_required(login_url='/login')
 def patients_data(request):
-    patients_form = add_patients_form()
-    patients_list = patients.objects.all()
-    out_patients_form = out_patient_form()
-    doctor = doctors.objects.all()
-    forms = {'patients_list': patients_list, 'patients_form': patients_form,
-             'out_patients_form': out_patients_form, 'doctors': doctor}
-    return render(request, 'patients_data.html', forms)
+    if request.user.is_superuser:
+        patients_form = add_patients_form()
+        patients_list = patients.objects.all()
+        out_patients_form = out_patient_form()
+        doctor = doctors.objects.all()
+        forms = {'patients_list': patients_list, 'patients_form': patients_form,
+                 'out_patients_form': out_patients_form, 'doctors': doctor}
+        return render(request, 'patients_data.html', forms)
+    else:
+        return redirect('/appointments')
 
 
 def patients_add(request):

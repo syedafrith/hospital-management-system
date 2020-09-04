@@ -23,8 +23,9 @@ from django.contrib.auth import views as auth_views
 
 app_name = 'patient_management_system'
 urlpatterns = [
+              path('',auth_views.LoginView.as_view(template_name='login.html')),
               path('admin/', admin.site.urls),
-              path('login/', views.account_login,name='login'),
+              path('login/', auth_views.LoginView.as_view(template_name='login.html'),name='login'),
               path('logout/',auth_views.LogoutView.as_view(next_page='/login'),name='logout'),
               path('password-change/',auth_views.PasswordChangeView.as_view(template_name='password_change.html',success_url='/doctors')),
               path('password-change-success',auth_views.PasswordChangeDoneView.as_view()),
