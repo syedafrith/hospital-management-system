@@ -419,6 +419,11 @@ h5{color:red;}
   margin-top:10px;
  }
 
+ .patient_list a:not(.p_profile){
+  border:1px solid white;
+  padding:0px 8px;
+}
+
  .search_bar{
  border:1px solid blue;
  display:none;
