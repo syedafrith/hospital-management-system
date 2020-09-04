@@ -158,7 +158,7 @@ def patient_profile(request, id):
 def check_patients_data(request):
     if request.is_ajax() and request.method == "POST":
         mobile = request.POST['mobile']
-        data = patients.objects.all().filter(Q(name=mobile) | Q(mobile=mobile))
+        data = patients.objects.all().filter(Q(name__iexact=mobile) | Q(mobile__iexact=mobile))
         html = render_to_string(
             template_name='patients_search_results.html',
             context={'form': data}
