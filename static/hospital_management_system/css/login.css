@@ -42,6 +42,10 @@ input:focus{
  border:1px solid #ff9900;
 }
 
+#username{
+ text-transform:lowercase;
+}
+
 .logo{
   display:block;
   border:1px solid white;

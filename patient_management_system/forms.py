@@ -68,6 +68,9 @@ class add_patients_form(forms.ModelForm):
                   'datetime'
                   ]
 
+    def clean_name(self):
+        return self.cleaned_data['name'].lower()
+
 
 class out_patient_form(forms.ModelForm):
     name = forms.CharField(label='Patients Name', label_suffix='',
@@ -110,7 +113,3 @@ class appointment_form(forms.ModelForm):
                   'department',
                   'created'
                   ]
-
-
-
-
